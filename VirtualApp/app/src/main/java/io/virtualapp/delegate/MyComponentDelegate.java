@@ -24,16 +24,6 @@ public class MyComponentDelegate implements AppCallback {
 
     @Override
     public void beforeStartApplication(String packageName, String processName, Context context) {
-        //List<String> addedPaths
-        //ApplicationLoaders.getDefault().addNative(
-        //[null, /system/fake-libs64, /data/app/com.kk.demo-v4jzuJDlUoea7o5w35sHmQ==/base.apk!/lib/arm64-v8a]
-        XposedHelpers.findAndHookMethod("android.app.ApplicationLoaders", Application.class.getClassLoader(),
-                "addNative", ClassLoader.class, Collection.class, new XC_MethodHook() {
-                    @Override
-                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                        Log.e("kk-test", "addNative:" + param.args[1]);
-                    }
-                });
     }
 
 

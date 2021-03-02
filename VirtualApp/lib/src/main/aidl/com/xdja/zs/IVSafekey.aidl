@@ -13,5 +13,4 @@ interface IVSafekey {
     byte[] getRandom(int len);
     void registerCallback(IVSCallback vsCallback);
     void unregisterCallback();
-    int initSafekeyCard();
 }
