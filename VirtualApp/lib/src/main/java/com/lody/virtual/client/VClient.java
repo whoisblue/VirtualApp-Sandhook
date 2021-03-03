@@ -66,6 +66,7 @@ import com.lody.virtual.remote.ClientConfig;
 import com.lody.virtual.remote.InstalledAppInfo;
 import com.lody.virtual.remote.PendingResultData;
 import com.lody.virtual.remote.VDeviceConfig;
+import com.lody.virtual.sandxposed.SandXposed;
 import com.lody.virtual.server.pm.PackageSetting;
 import com.xdja.activitycounter.ActivityCounterManager;
 import com.xdja.zs.VAppPermissionManager;
@@ -555,6 +556,7 @@ public final class VClient extends IVClient.Stub {
             fixWeChatTinker(context, data.appInfo, originClassLoader);
         }
 
+        SandXposed.injectXposedModule(context, packageName, processName);
         VirtualCore.get().getAppCallback().beforeStartApplication(packageName, processName, context);
 
         try {

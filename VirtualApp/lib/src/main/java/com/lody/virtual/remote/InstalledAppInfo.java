@@ -52,6 +52,26 @@ public final class InstalledAppInfo implements Parcelable {
         }
     }
 
+    public String getLibPath() {
+        return getLibPath(VirtualCore.get().isPluginEngine());
+    }
+
+    public String getLibPath(boolean is64bit) {
+        if (appMode == MODE_APP_USE_OUTSIDE_APK) {
+            try {
+                ApplicationInfo info = VirtualCore.get().getUnHookPackageManager().getApplicationInfo(packageName, 0);
+                return info.nativeLibraryDir;
+            } catch (PackageManager.NameNotFoundException e) {
+                throw new IllegalStateException(e);
+            }
+        }
+        if (is64bit) {
+            return VEnvironment.getAppLibDirectory64(packageName).getPath();
+        } else {
+            return VEnvironment.getAppLibDirectory(packageName).getPath();
+        }
+    }
+
     public String getOdexPath() {
         return getOdexFile().getPath();
     }
