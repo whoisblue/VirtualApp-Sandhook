@@ -66,7 +66,6 @@ import com.lody.virtual.remote.ClientConfig;
 import com.lody.virtual.remote.InstalledAppInfo;
 import com.lody.virtual.remote.PendingResultData;
 import com.lody.virtual.remote.VDeviceConfig;
-import com.lody.virtual.sandxposed.SandXposed;
 import com.lody.virtual.server.pm.PackageSetting;
 import com.xdja.activitycounter.ActivityCounterManager;
 import com.xdja.zs.VAppPermissionManager;
@@ -86,6 +85,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import me.weishu.exposed.ExposedBridge;
 import mirror.android.app.ActivityManagerNative;
 import mirror.android.app.ActivityThread;
 import mirror.android.app.ActivityThreadNMR1;
@@ -556,7 +556,13 @@ public final class VClient extends IVClient.Stub {
             fixWeChatTinker(context, data.appInfo, originClassLoader);
         }
 
-        SandXposed.injectXposedModule(context, packageName, processName);
+        ClassLoader originClassLoader = context.getClassLoader();
+        ExposedBridge.initOnce(context, data.appInfo, originClassLoader);
+        List<InstalledAppInfo> modules = VirtualCore.get().getInstalledApps(0);
+        for (InstalledAppInfo module : modules) {
+            ExposedBridge.loadModule(module.getApkPath(), module.getOdexFile().getParent(), module.getLibPath(),
+                    data.appInfo, originClassLoader);
+        }
         VirtualCore.get().getAppCallback().beforeStartApplication(packageName, processName, context);
 
         try {

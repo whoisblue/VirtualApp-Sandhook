@@ -6,7 +6,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId rootProject.ext.PACKAGE_NAME_32BIT
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 180080814
         versionName "2.2.3"

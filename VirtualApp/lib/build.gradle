@@ -102,6 +102,11 @@ dependencies {
     //compileOnly 'com.xdja.safekeyservice:jar_multi_unitepin:3.9.24'
     implementation 'com.android.support:appcompat-v7:26.1.0'
 
-    api 'com.swift.sandhook:hooklib:4.2.0'
-    api 'com.swift.sandhook:xposedcompat:4.2.0'
+//    api 'com.swift.sandhook:hooklib:4.2.0'
+//    api 'com.swift.sandhook:xposedcompat:4.2.0'
+
+    // epic hook
+    api 'me.weishu.exposed:exposed-xposedapi:0.4.6' // The Xposed API
+    api ('me.weishu:epic:1.0.0') // The AOP Framework
+    api 'com.getkeepsafe.relinker:relinker:1.2.3' // for load library
 }
